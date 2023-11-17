@@ -1,0 +1,51 @@
+<script>
+  // Objeto para almacenar los filtros
+  var filtros = {};
+
+  {% for filtro in filtros %}
+    {% if filtro.tipo == 'rango' %}
+      filtros['{{ filtro.nombre }}'] = {
+        tipo: 'rango',
+        min: '',
+        max: ''
+      };
+    {% elif filtro.tipo == 'valores_exactos' %}
+      filtros['{{ filtro.nombre }}'] = {
+        tipo: 'valores_exactos',
+        valor: ''
+      };
+    {% endif %}
+  {% endfor %}
+
+  function aplicarFiltros() {
+    // Recopilar valores de los filtros
+    {% for filtro in filtros %}
+      {% if filtro.tipo == 'rango' %}
+        filtros['{{ filtro.nombre }}'].min = $("input[name='{{ filtro.nombre }}_min']").val();
+        filtros['{{ filtro.nombre }}'].max = $("input[name='{{ filtro.nombre }}_max']").val();
+      {% elif filtro.tipo == 'valores_exactos' %}
+        filtros['{{ filtro.nombre }}'].valor = $("select[name='{{ filtro.nombre }}']").val();
+      {% endif %}
+    {% endfor %}
+
+    // Enviar los filtros a la vista de Django mediante AJAX
+    $.ajax({
+      type: 'POST',
+      url: '/filtrar_datos/',  // Ajusta la URL a tu vista de Django
+      data: {
+        'filtros': JSON.stringify(filtros),  // Convertir a cadena JSON
+        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Token CSRF para protección
+      },
+      success: function(data) {
+        // Manejar la respuesta de la vista de Django
+        alert('Filtros aplicados con éxito');
+        // Aquí podrías actualizar la tabla en la página según la respuesta
+      },
+      error: function(xhr, errmsg, err) {
+        // Manejar errores si los hay
+        console.log(xhr.status + ": " + xhr.responseText);
+      }
+    });
+  }
+</script>
+<button id="aplicarFiltros">Aplicar Filtros</button>

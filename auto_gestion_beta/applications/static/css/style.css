@@ -1,0 +1,84 @@
+/* Estilo de la barra de navegación superior (Triple de Grande, Roja con Letras Blancas) */
+header {
+    background-color: #d10f0f; /* Fondo rojo */
+    color: #fff; /* Color del texto blanco */
+    padding: 30px; /* Espacio interno triple (ajusta según necesites) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2; /* Capa superior */
+    outline: none;
+}
+
+/* Estilo de la barra lateral (Rojo más pálido) */
+#sidebar {
+    background-color: #d10f0fcc; /* Rojo más pálido */
+    color: #fff; /* Color del texto */
+    padding: 10px; /* Espacio interno */
+    position: fixed;
+    top: 0;
+    left: -275px; /* Inicialmente oculta */
+    width: 250px; /* Ancho de la barra lateral */
+    height: 100%; /* Altura completa de la pantalla */
+    transition: left 0.3s; /* Transición suave para la animación de colapso */
+    z-index: 1; /* Capa inferior */
+}
+
+/* Estilo del botón para desplegar/colapsar la barra lateral */
+#toggle-sidebar {
+    background-color: #d10f0f; /* Color de fondo (rojo) */
+    color: #fff; /* Color del texto blanco */
+    padding: 20px; /* Espacio interno (ajustado al mismo tamaño que la barra de navegación) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3; /* Capa superior sobre la barra lateral */
+    border-width: 0; /* Establece el ancho del borde en 0 píxeles para quitarlo */
+    border-style: none; /* Establece el estilo del borde en "none" para quitar cualquier estilo de borde */
+    border-color: transparent; /* Establece el color del borde en transparente */
+}
+
+
+/* Estilo de la sección principal con la tabla (Márgenes laterales 4 veces más grandes, Margen superior de 100px) */
+main {
+    margin-left: 150px; /* Deja espacio para la barra lateral */
+    margin-right: 150px; /* Márgenes laterales cuádruples (ajusta según necesites) */
+    margin-top: 100px; /* Margen superior de 100px */
+    padding: 20px; /* Espacio interno */
+    transition: margin 0.3s; /* Transición suave para el ajuste de margen */
+}
+
+/* Estilo de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+/* Aplicar formato de dinero a números en la tabla */
+/* Clase "money" se aplica a los números que deben formatearse como dinero */
+.money {
+    text-align: right;
+}
+
+/* Estilo de los encabezados de tabla */
+th {
+    background-color: #fff;
+    color: #000000;
+}
+.tab {
+    cursor: pointer;
+}
+
+.tab.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.pagination-container button,
+.pagination-container div {
+    display: inline;
+}

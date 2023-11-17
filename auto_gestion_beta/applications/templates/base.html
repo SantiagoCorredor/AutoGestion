@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autogestión de reportes</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Barra de navegación superior -->
+    <header>
+        <nav>
+            <!-- Botón para desplegar/colapsar la barra lateral -->
+            <button id="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Otros elementos de navegación, si los hay -->
+        </nav>
+    </header>
+
+    <!-- Barra lateral colapsable -->
+    <aside id="sidebar">
+        <!-- Contenido de la barra lateral, como filtros, enlaces, etc. -->
+    </aside>
+
+    <!-- Contenido principal -->
+    <main>
+        <!-- Contenido principal iría aquí, pero no se proporciona en esta versión -->
+    </main>
+
+    <!-- Script para controlar el colapso de la barra lateral -->
+    <script src="{% static 'js/barra.js' %}"></script>
+</body>
+</html>
