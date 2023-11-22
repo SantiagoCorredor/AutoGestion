@@ -12,26 +12,15 @@
 <body>
     <!-- Barra de navegación superior -->
     <header>
-        <nav>
-            <!-- Botón para desplegar/colapsar la barra lateral -->
-            <button id="toggle-sidebar">
-                <i class="fas fa-bars"></i>
-            </button>
-            <!-- Otros elementos de navegación, si los hay -->
-        </nav>
+        <!-- Puedes agregar contenido a la barra de navegación si es necesario -->
     </header>
-
-    <!-- Barra lateral colapsable -->
-    <aside id="sidebar">
-        <!-- Contenido de la barra lateral, como filtros, enlaces, etc. -->
-    </aside>
 
     <!-- Contenido principal -->
     <main>
-        <!-- Contenido principal iría aquí, pero no se proporciona en esta versión -->
+        {% block content %}{% endblock %}
     </main>
 
     <!-- Script para controlar el colapso de la barra lateral -->
-    <script src="{% static 'js/barra.js' %}"></script>
 </body>
 </html>
+    
