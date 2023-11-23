@@ -1,117 +1,43 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autogestión de reportes</title>
+    <!-- Configuración del favicon para la pestaña del navegador -->
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Barra de navegación superior -->
+    <header>
+        <nav>
+            <!-- Botón para desplegar/colapsar la barra lateral -->
+            <button id="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Otros elementos de navegación, si los hay -->
+        </nav>
+    </header>
 
-{% block content %}
-    <h1>Consulta de Clientes</h1>
+    <!-- Barra lateral colapsable -->
+    <aside id="sidebar">
+        <!-- No hay contenido en la barra lateral en esta versión -->
+    </aside>
 
-    <!-- Controles de filtro -->
-    <label for="contactable_sodimac_filter">Contactable Sodimac:</label>
-    <select id="contactable_sodimac_filter" onchange="applyFilters()">
-        <option value="">Todos</option>
-        <option value="SI">SI</option>
-        <option value="NO">NO</option>
-    </select>
+    <!-- Contenido principal -->
+    <main>
+        <!-- Espacio para filtrar y presentar la tabla -->
+        <div class="table-container">
+            <!-- No incluyas la tabla ni otros elementos relacionados -->
+            <!-- Incluye solo el contenido de los filtros -->
+            {% include 'filtros.html' %}
+        </div>
+    </main>
 
-    <label for="contactable_tercero_filter">Contactable Tercero:</label>
-    <select id="contactable_tercero_filter" onchange="applyFilters()">
-        <option value="">Todos</option>
-        <option value="SI">SI</option>
-        <option value="NO">NO</option>
-    </select>
-
-    <label for="perfil_segmentacion">Perfil Segmentación:</label>
-    <select id="perfil_segmentacion" onchange="applyFilters()">
-        <option value="">todos</option>
-        <option value="null">Nulo</option>
-        <option value="VENTA EMPRESA">Venta empresa</option>
-        <option value="HOGAR">Hogar</option>
-        <option value="PROFESIONAL">Profesional</option>
-    </select>
-
-    <label for="flag_cmr">Cliente CMR:</label>
-    <select id="flag_cmr" onchange="applyFilters()">
-        <option value="">Todos</option>
-        <option value="SI">SI</option>
-        <option value="NO">NO</option>
-    </select>
-
-    <label for="flag_banco">Cliente Banco:</label>
-    <select id="flag_banco" onchange="applyFilters()">
-        <option value="">Todos</option>
-        <option value="SI">SI</option>
-        <option value="NO">NO</option>
-    </select>
-
-    <!-- Agrega más controles de filtro para otras columnas según sea necesario -->
-
-    <table id="data-table">
-        <thead>
-            <tr id="header-row">
-                <!-- Encabezados se llenarán con JavaScript -->
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Cuerpo de la tabla se llenará con JavaScript -->
-        </tbody>
-    </table>
-
-    <script>
-        // Obtener el JSON desde el contexto y parsearlo
-        var jsonData = {{ data_json|safe }};
-        
-        // Obtener la tabla y el cuerpo de la tabla
-        var table = document.getElementById('data-table');
-        var tbody = table.querySelector('tbody');
-        var headerRow = document.getElementById('header-row');
-
-        // Llenar la fila de encabezado con los nombres de las columnas
-        Object.keys(jsonData[0]).forEach(function(columnName) {
-            var th = document.createElement('th');
-            th.textContent = columnName;
-            headerRow.appendChild(th);
-        });
-
-        // Llenar el resto de la tabla con los datos
-        function fillTable() {
-            // Limpiar el cuerpo de la tabla antes de volver a llenarlo
-            tbody.innerHTML = '';
-
-            // Filtrar los datos según los valores seleccionados en los controles de filtro
-            var filteredData = jsonData.filter(function(row) {
-                var contactableSodimacFilter = document.getElementById('contactable_sodimac_filter').value;
-                var contactableTerceroFilter = document.getElementById('contactable_tercero_filter').value;
-                var perfilsegmentacion = document.getElementById('perfil_segmentacion').value;
-                var clientecmr = document.getElementById('flag_cmr').value;
-                var clientebanco = document.getElementById('flag_banco').value;
-
-                // Agrega más variables para otros filtros según sea necesario
-
-                return (contactableSodimacFilter === '' || row.CONTACTABLE_SODIMAC === contactableSodimacFilter) &&
-                        (contactableTerceroFilter === '' || row.CONTACTABLE_TERCERO === contactableTerceroFilter) &&
-                        (perfilsegmentacion === '' || row.PERFIL_SEGMENTACION === perfilsegmentacion) &&
-                        (clientecmr === '' || row.FLAG_CMR_PUNTOS=== clientecmr) &&
-                        (clientebanco === '' || row.FLAG_BANCO === clientebanco);
-
-                // Agrega más condiciones para otros filtros según sea necesario
-            });
-
-            // Llenar la tabla con los datos filtrados
-            filteredData.forEach(function(row) {
-                var tr = document.createElement('tr');
-                Object.values(row).forEach(function(value) {
-                    var td = document.createElement('td');
-                    td.textContent = value;
-                    tr.appendChild(td);
-                });
-                tbody.appendChild(tr);
-            });
-        }
-
-        // Aplicar filtros cuando cambian los valores en los controles de filtro
-        function applyFilters() {
-            fillTable();
-        }
-
-        // Llenar la tabla inicialmente
-        fillTable();
-    </script>
-{% endblock %}
+    <!-- Script para controlar el colapso de la barra lateral y aplicar filtros -->
+    <script src="{% static 'js/filtros.js' %}"></script>
+</body>
+</html>
