@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Seleccionar Columnas</h2>
+        <form id="ColumnSelectionForm" action="{% url 'reportes:column_Selection' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Siguiente</button>
+        </form>
+    </div>
+
+    <script>
+        function enviarFormulario() {
+            var formData = new FormData(document.getElementById('FormBasicForm'));
+
+            fetch('{% url "reportes:column_Selection" %}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                // Manejar la respuesta y actualizar la interfaz de usuario, por ejemplo:
+                document.getElementById('resultados').innerHTML = 'Resultados: ' + data.resultado;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+{% endblock %}
